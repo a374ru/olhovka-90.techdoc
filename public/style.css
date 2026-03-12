@@ -1,7 +1,33 @@
+
+:root {
+	--kino-var: #e34234;
+	--sizeDate-var: 1.1em;
+	--alink-var: #6b6b6b;
+	--blink-var: #860000;
+	--fontIrmUCS-var: Irmologion;
+	--font-var: Fontics;
+	--fontEvng-var: Evangeliecs;
+	--fontSize-H1: 1.7em;
+}
+
 body {
-	font-family: sans-serif;
-	background: #ffffff;
-	color: #747474;
+	font-family: 'Arial';
+	margin: 3em;
+	padding-bottom: 12px;
+	color: #857564;
+	font-size: 22px;
+	margin-bottom: 3em;
+	background: linear-gradient(to bottom, #ffffff, #fdfff6);
+}
+
+@font-face {
+	font-family: 'Fontics';
+	font-display: auto;
+	src:
+		local('Fontics-Regular'),
+		url('https://fonts.a374.ru/Fontics-Regular.otf');
+	font-weight: normal;
+	font-style: normal;
 }
 
 main {
@@ -17,6 +43,11 @@ header h1 {
 
 footer {
 	text-align: center;
+	padding: 2em 0;
+	background-color: #fff6f6;
+	border-radius: 50%;
+	width: 70%;
+	margin: auto;
 	clear: both;
 }
 a {
@@ -40,18 +71,17 @@ hr {
 	padding: 1em 0 2em;
 	/* The container for both the previous and next articles. */
 }
-#prevart {
-	float: left;
+#prev {
 	text-align: left;
 }
-#nextart {
-	float: right;
-	text-align: right;
-	padding: 1em 0 2em;
+#next {
+	text-align: center;
+	padding: 0em 0 1em;
 }
-#nextart,
-#prevart {
-	max-width: 33%;
+#next,
+#prev {
+margin-top: 1em ;
+
 }
 
 /* //////////////////////////////// */
@@ -65,38 +95,6 @@ hr {
 /* среда,  24 августа 2023 v2  */
 /* @import "https://fonts.googleapis.com/css2?family=Roboto"; */
 
-:root {
-	--kino-var: #e34234;
-	--sizeDate-var: 1.1em;
-	--alink-var: #6b6b6b;
-	--blink-var: #860000;
-	--fontIrmUCS-var: Irmologion;
-	--font-var: Fontics;
-	--fontEvng-var: Evangeliecs;
-	--fontSize-H1: 1.7em;
-}
-
-body {
-	font-family: 'Arial';
-	margin: 3em;
-	padding-bottom: 12px;
-	color: #857564;
-	font-size: 22px;
-	/* Created with https://www.css-gradient.com */
-	/* background: -webkit-linear-gradient(top, #fffbf6, #fff9ec); */
-	/* background: -moz-linear-gradient(top, #fffbf6, #fff9ec); */
-	/* background: linear-gradient(to bottom, #fffbf6, #fff9ec); */
-}
-
-@font-face {
-	font-family: 'Fontics';
-	font-display: auto;
-	src:
-		local('Fontics-Regular'),
-		url('https://fonts.a374.ru/Fontics-Regular.otf');
-	font-weight: normal;
-	font-style: normal;
-}
 
 blockquote {
 	margin-right: 2px;
