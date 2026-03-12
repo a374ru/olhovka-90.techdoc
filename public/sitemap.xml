@@ -2,29 +2,29 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>/kraski/</loc>
+    <loc>//localhost:1313/kraski/</loc>
     <lastmod>2026-03-12T13:37:41+03:00</lastmod>
   </url><url>
-    <loc>/devices/</loc>
+    <loc>//localhost:1313/devices/</loc>
     <lastmod>2026-03-12T13:33:53+03:00</lastmod>
   </url><url>
-    <loc>/gaz/</loc>
+    <loc>//localhost:1313/gaz/</loc>
     <lastmod>2026-03-12T13:27:12+03:00</lastmod>
   </url><url>
-    <loc>/</loc>
+    <loc>//localhost:1313/</loc>
     <lastmod>2026-03-12T08:16:07+03:00</lastmod>
   </url><url>
-    <loc>/water/</loc>
+    <loc>//localhost:1313/water/</loc>
     <lastmod>2026-03-11T22:08:50+03:00</lastmod>
   </url><url>
-    <loc>/elvo/</loc>
+    <loc>//localhost:1313/elvo/</loc>
     <lastmod>2026-03-11T21:57:03+03:00</lastmod>
   </url><url>
-    <loc>/generator/</loc>
+    <loc>//localhost:1313/generator/</loc>
     <lastmod>2026-03-10T13:18:18+03:00</lastmod>
   </url><url>
-    <loc>/categories/</loc>
+    <loc>//localhost:1313/categories/</loc>
   </url><url>
-    <loc>/tags/</loc>
+    <loc>//localhost:1313/tags/</loc>
   </url>
 </urlset>
