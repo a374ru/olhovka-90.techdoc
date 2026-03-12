@@ -1,5 +1,5 @@
 title = "OLHOVKA-90"
-baseURL = '/'
+baseURL = 'olhovka-90.web.app'
 languageCode = 'ru-RU'
 
 [params]

@@ -201,7 +201,10 @@ strong {
 }
 
 em {
-	color: #ff0707;
+	color: #ffffff;
+	padding: 1ch;
+	border-radius: 7px;
+	background-color: #c91c1cb8;
 	font-weight: 600;
 }
 

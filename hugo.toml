@@ -1,4 +1,4 @@
-baseURL = '/'
+baseURL = 'olhovka-90.web.app'
 languageCode = 'ru-RU'
 title = 'Ольховка-90'
 theme = "lugo"
