@@ -25,7 +25,11 @@ a {
 	text-decoration: none ;
 }
 
-
+hr {
+margin: 4vw auto;
+color: #ff9500;
+width: 97%;
+}
 /* For TAGLIST.HTML */
 .taglist {
 	text-align: center ;

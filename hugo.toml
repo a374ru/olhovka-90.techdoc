@@ -1,4 +1,4 @@
-baseURL = '~'
-languageCode = 'en-us'
+baseURL = '/'
+languageCode = 'ru-RU'
 title = 'Ольховка-90'
 theme = "lugo"

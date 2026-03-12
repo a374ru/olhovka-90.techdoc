@@ -1,0 +1,11 @@
+{
+  "hosting": {
+  "site":"olhovka-90",
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
