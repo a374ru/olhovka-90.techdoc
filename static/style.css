@@ -24,10 +24,11 @@ body {
 	flex-direction: column;
 	justify-content: start;
 
-	height: 100vh;
+	min-height: 100vh;
 }
 
 main {
+	flex: 1;
 	max-width: 800px;
 	margin: auto;
 	padding: 0 0.4rem;
@@ -199,17 +200,19 @@ pre {
 
 code {
 	font-size: 0.9em;
-	color: #96719c;
+	color: #005eff;
+	font-weight: 400;
 	overflow-wrap: break-word;
 }
 
 strong {
-	color: #b8860b;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	color: #7b7b7b;
 }
 
 em {
 	color: #ffffff;
-	padding: .2rem  .7rem  .2rem .7rem ;
+	padding: 0rem 0.7rem 0.1rem 0.7rem;
 	border-radius: 7px;
 	background-color: #ff6868;
 	font-weight: 600;
@@ -356,8 +359,6 @@ li {
 	/* font-size: 1rem; */
 	padding: 1px 7px 0.7em 0px;
 }
-
-
 
 #navi-icon-home {
 	font-weight: 600;
