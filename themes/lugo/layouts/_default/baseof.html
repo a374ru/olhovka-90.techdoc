@@ -15,6 +15,7 @@
 </head>
 
 <body> {{ if .Site.Menus.main }}{{ partial "nav.html" . }}{{ end -}} 
+<div class="container">
 	<main>
 		<header><a href="{{ .Site.BaseURL }}"> <h1 id="tag_{{ .Title }}">{{ block "title" . }}{{ end }}</h1></a>
 		</header>
@@ -22,10 +23,12 @@
 		<article>{{ block "main" . }} {{ .Content }} {{ end }} {{ if .Param "nextprev" }}{{ partial "nextprev.html" . -}}{{ end -}} {{ if .Param "taglist" }}{{ partial "taglist.html" . }}{{ end -}} 
 		</article>
 	</main> {{ block "footer" . }} 
-	
+
 	<footer>
 	<a href="{{ .Site.BaseURL }}"><span id="tag_{{ .Title }}">Yabo System © Third Millennium</span></a>
 		<!-- {{- if .Param "showrss" }}<br><br><a href="/index.xml"><img src="/rss.svg" style="max-height:1.5em" alt="RSS Feed" title="Subscribe via RSS for updates."></a>{{ end }} -->
-	</footer> {{ end }} </body>
+	</footer> {{ end }} 
+</div>
+	</body>
 
 </html>
