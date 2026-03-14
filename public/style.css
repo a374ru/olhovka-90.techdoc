@@ -7,6 +7,7 @@
 	--font-var: Fontics;
 	--fontEvng-var: Evangeliecs;
 	--fontSize-H1: 1.7em;
+	--background-body: #fffafa;
 }
 /* html{height: 100vh;} */
 body {
@@ -15,6 +16,7 @@ body {
 	/* padding-bottom: 12px; */
 	color: #857564;
 	font-size: 22px;
+	background-color: var(--background-body);
 
 	/* background: linear-gradient(to bottom, #ffffff, #fdfff6); */
 }
@@ -48,9 +50,6 @@ header {
 	font-style: normal;
 }
 
-header h1 {
-}
-
 footer {
 	text-align: center;
 	padding: 2em 0;
@@ -61,7 +60,7 @@ footer {
 }
 
 a {
-	color: #747474;
+	color: var(--alink-var);
 	text-decoration: none;
 }
 
@@ -85,6 +84,13 @@ hr {
 }
 #prev {
 	text-align: center;
+	background-color: #f9ebeb;
+	padding: 2em 0;
+	border-radius: 1dvw;
+}
+
+#prev:hover {
+	color: #b68383;
 }
 #next {
 	text-align: center;
@@ -206,7 +212,7 @@ code {
 }
 
 strong {
-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	color: #7b7b7b;
 }
 
@@ -315,7 +321,7 @@ a:link {
 
 a:visited #next,
 #prev {
-	color: #316ba9;
+	color: #927a64;
 	text-decoration-line: none;
 	/* list-style-type: circle; */
 }
@@ -594,6 +600,9 @@ table.gsc-search-box {
 @media (max-width: 1024px) {
 	.markdown-body {
 		width: 97%;
+	}
+	main {
+		margin: 0 3vw;
 	}
 
 	/* blockquote {
