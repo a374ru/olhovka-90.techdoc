@@ -14,7 +14,7 @@ body {
 	margin: 0;
 	font-family: 'Arial';
 	/* padding-bottom: 12px; */
-	color: #857564;
+	color: #673e00;
 	font-size: 22px;
 	background-color: var(--background-body);
 
@@ -85,7 +85,7 @@ hr {
 #prev {
 	text-align: center;
 	background-color: #f9ebeb;
-	padding: 2em 0;
+	padding: 2em 1em;
 	border-radius: 1dvw;
 }
 

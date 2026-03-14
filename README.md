@@ -31,7 +31,7 @@ alias hugop='rm -rf public/** && hugo && cp -R public/** docs
 
 ## Необходимые команды `CLI` для `HUGO`
 
-Создание новой страницыы:
+Создание новой страницы:
 
 ```sh
 hugo new newname.md
@@ -40,11 +40,11 @@ hugo new newname.md
 Запуск сервера с отключённым кэшем:
 
 ```sh
-hugo server -ignoreCashe
+hugo server -ignoreCache
 ```
 
-Запуск сервера с учётом черновиковновиков:
+Запуск сервера с учётом черновиков и отключеным кэшем:
 
 ```sh
-hugo server -D
+hugo server -D -ignoreCache
 ```
