@@ -321,7 +321,7 @@ a:link {
 
 a:visited #next,
 #prev {
-	color: #927a64;
+	color: #7c6754;
 	text-decoration-line: none;
 	/* list-style-type: circle; */
 }
@@ -337,17 +337,21 @@ a:hover {
 }
 
 img {
-	width: 50%;
-	height: auto;
+	width: 96%;
+	height: 200px;
+	object-fit: cover;
 	display: block;
 	/* margin-left: auto;
 margin-right: auto; */
 	/* transform: rotate(-2deg); */
-	filter: drop-shadow(0px 0px 5px #0005) saturate(77%);
+	/* filter: drop-shadow(0px 0px 5px #0005) saturate(77%); */
+
 	cursor: pointer;
 	padding: 1vw;
 	margin: 2em 0;
-	/* border: 12px solid #fffbea; */
+	border: 1px solid #fffbea;
+	background-color: #fff4e4;
+	
 }
 
 time {
