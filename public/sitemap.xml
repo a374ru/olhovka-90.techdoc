@@ -2,11 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>/internet/</loc>
-    <lastmod>2026-03-13T20:40:01+03:00</lastmod>
-  </url><url>
     <loc>/devices/</loc>
-    <lastmod>2026-03-12T13:33:53+03:00</lastmod>
+    <lastmod>2026-03-13T13:33:53+03:00</lastmod>
   </url><url>
     <loc>/gaz/</loc>
     <lastmod>2026-03-12T13:27:12+03:00</lastmod>
@@ -24,7 +21,7 @@
     <lastmod>2026-03-10T13:18:18+03:00</lastmod>
   </url><url>
     <loc>/kraski/</loc>
-    <lastmod>2026-03-09T13:37:41+03:00</lastmod>
+    <lastmod>2026-03-08T13:37:41+03:00</lastmod>
   </url><url>
     <loc>/categories/</loc>
   </url><url>
