@@ -1,4 +1,4 @@
-// скрипт увеличения изображения по клику 123
+// скрипт увеличения изображения по клику 
 document.addEventListener('DOMContentLoaded', function () {
     const images = document.querySelectorAll('img');
 
