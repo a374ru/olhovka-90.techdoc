@@ -1,5 +1,5 @@
 {
-  "name": "909192",
+  "name": "olhovka-90",
   "short_name": "909192",
   "icons": [
     {
@@ -15,7 +15,7 @@
       "purpose": "maskable"
     }
   ],
-  "theme_color": "#ffffff",
+  "theme_color": "#ffb349",
   "background_color": "#ffffff",
   "display": "standalone"
 }

@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Pixodesk SVG (https://pixodesk.com) -->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" fill="none" stroke="#00000093" stroke-width="12">
-  <defs>
-    <linearGradient id="13502" x1="-90.52999999999999" y1="43.83343524544811" x2="228.50173448706823" y2="43.83343524544811" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="rgb(255,255,255)"/>
-      <stop offset="100%" stop-color="rgba(0,0,0,0.7453)"/>
-    </linearGradient>
-  </defs>
-  <path fill="#ff0000" stroke="url(#13502)" stroke-width="68" transform="translate(199.4635, 217.6727)rotate(-59.340407799001724)scale(1.0085, 1.0085)translate(-53.7662, -53.7662)" d="M185.7595,156.7368L26.2437,198.0624L-90.53,85.1589L-47.7879,-69.0701L111.728,-110.3955L228.5017,2.5079L185.7595,156.7368z"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" fill="none" stroke="#000000" stroke-width="12">
+  <path fill="#ff0000" stroke="#a70000" stroke-width="68" transform="translate(199.7452, 218.1723)rotate(-56.06678906992796)translate(-53.7662, -53.7662)" d="M185.7595,156.7368L26.2437,198.0624L-90.53,85.1589L-47.7879,-69.0701L111.728,-110.3955L228.5017,2.5079L185.7595,156.7368z"/>
+  <text fill="#ffffff" stroke="#000000" stroke-width="3" font-family="Impact" font-size="124px" xml:space="preserve" transform="translate(213.2657, 200.732)rotate(-36.76044826820981)scale(0.8493, 0.8493)translate(-78.809, 39.485)" data-gn-el-type="text" style="white-space:pre"><tspan>90</tspan></text>
 </svg>

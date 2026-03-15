@@ -272,9 +272,9 @@ h1:first-child {
 	color: #ff9500;
 }
 
-h1:first-child::before{
+h1:first-child::after{
   float: inline-end;
-content: url("/svg/nastroika-olhovka-90.svg");
+content: url("/svg/ya-pointer-workspace.svg");
 display: inline-block;
   width: 5dvw;
   margin-right: 20px;
