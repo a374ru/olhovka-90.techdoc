@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404, Olhovka-90</title>
+</head>
+<body>
+    {{ define "main" }}
+  <h1>404 Not Found</h1>
+  <p>The page you requested cannot be found.</p>
+  <p>
+    <a href="{{ .Site.Home.RelPermalink }}">
+      Return to the home page
+    </a>
+  </p>
+{{ end }}
+</body>
+</html>
