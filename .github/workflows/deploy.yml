@@ -18,7 +18,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add b/
+          git add docs/
           git diff-index --quiet HEAD || git commit -m "Copy contents from folder public to docs"
           git push origin main
 
