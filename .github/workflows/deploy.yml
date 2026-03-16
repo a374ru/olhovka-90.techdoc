@@ -11,18 +11,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Copy Folder Public to Docs
-        run: cp -r public/* docs/
-
-      - name: Commit and push changes
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add docs/
-          git diff-index --quiet HEAD || git commit -m "Copy contents from folder public to docs"
-          git push origin main
-
-
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
