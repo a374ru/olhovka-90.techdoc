@@ -15,9 +15,9 @@ jobs:
         run: cp -r public/* docs/
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '24'
 
       - name: Deploy to Firebase
         run: |
