@@ -272,14 +272,14 @@ h1:first-child {
 	color: #ff9500;
 }
 
-h1:first-child::after{
-  float: inline-end;
-content: url("/svg/ya-pointer-workspace.svg");
-display: inline-block;
-  width: 5dvw;
-  margin-right: 20px;
+h1:first-child::after {
+	float: inline-end;
+	content: url('/svg/ya-pointer-workspace.svg');
+	display: inline-block;
+	width: 5dvw;
+	margin-right: 20px;
 
-  /* background: rgb(255, 255, 255); */
+	/* background: rgb(255, 255, 255); */
 }
 
 h1 {
@@ -361,7 +361,13 @@ margin-right: auto; */
 	margin: 2em 0;
 	border: 1px solid #fffbea;
 	background-color: #fff4e4;
-	
+}
+
+img:hover {
+	background-color: #fcd;
+	filter: saturate(0.7);
+	transform: (1);
+	transition: 0.5s;
 }
 
 time {
