@@ -364,10 +364,8 @@ margin-right: auto; */
 }
 
 img:hover {
-	background-color: #fcd;
+	background-color: #e3e3e3;
 	filter: saturate(0.7);
-	transform: (1);
-	transition: 0.5s;
 }
 
 time {
