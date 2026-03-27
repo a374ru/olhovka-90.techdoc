@@ -124,11 +124,17 @@ blockquote {
 }
 
 blockquote p::before {
-	content: ' 💡 ';
-	text-shadow: 0px 0px 3px #9d9d9d;
+	
 	float: left;
-	padding-right: 1rem;
-	font-size: 2rem;
+
+	content: url('/svg/ya-attention.svg');
+	display: inline-block;
+	width: 5rem;
+	margin-right: 15px;
+	padding-bottom: 3hw;
+	/* float: left; */
+	/* padding-right: 1rem; */
+	/* font-size: 2rem; */
 	
 
 }
@@ -217,7 +223,7 @@ pre {
 
 code {
 	font-size: 0.9em;
-	color: #005eff;
+	color: #00BCFF;
 	font-weight: 400;
 	overflow-wrap: break-word;
 }
