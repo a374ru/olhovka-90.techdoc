@@ -119,7 +119,18 @@ blockquote {
 	border-right: 0.2em solid #e9e2da;
 	padding: 0.4em 1.5em 0.4em 1.5em;
 	border-radius: 7%;
-	background-color: #fdf9f4;
+	background-color: #ffffff;
+	color: #c57676;
+}
+
+blockquote p::before {
+	content: ' 💡 ';
+	text-shadow: 0px 0px 3px #9d9d9d;
+	float: left;
+	padding-right: 1rem;
+	font-size: 2rem;
+	
+
 }
 
 .red {
@@ -354,18 +365,19 @@ img {
 	/* margin-left: auto;
 margin-right: auto; */
 	/* transform: rotate(-2deg); */
-	/* filter: drop-shadow(0px 0px 5px #0005) saturate(77%); */
 
 	cursor: pointer;
 	padding: 1vw;
 	margin: 2em 0;
 	border: 1px solid #fffbea;
+	border-radius: 1vh;
 	background-color: #fff4e4;
 }
 
 img:hover {
 	background-color: #e3e3e3;
 	filter: saturate(0.7);
+	/* filter: drop-shadow(0px 0px 2px #0005) saturate(77%); */
 }
 
 time {
