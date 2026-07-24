@@ -43,7 +43,7 @@ title = 'Интернет'
 
 #### Доступ к роутеру можно получить через приложение `NETCRAZE`, которое всегда можно скачать в магазине приложений Apple `App Store`.
 
-![Netcraze device](/img/netcraze-app.png)
+![Netcraze device](/img/netcraze-app.jpeg)
 
 #### или через веб интерфейс по адресу : *[olkhovka-90.netcraze.pro](https://olkhovka-90.netcraze.pro)*
 
