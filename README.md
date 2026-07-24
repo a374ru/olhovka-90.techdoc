@@ -27,7 +27,7 @@ alias hugop='rm -rf public/** && hugo && cp -R public/** docs
 
 Теперь для выполнения сборки проекта достаточно просто набрать в терминале команду `hugop`.
 
-Директория `doсs` должна быть создана заранее.
+<span style="color: #e34234;"> Директория `doсs` должна быть создана заранее.
 
 ## Необходимые команды `CLI` для `HUGO`
 
@@ -40,11 +40,11 @@ hugo new newname.md
 Запуск сервера с отключённым кэшем:
 
 ```sh
-hugo server -ignoreCache
+hugo server --ignoreCache
 ```
 
 Запуск сервера с учётом черновиков и отключеным кэшем:
 
 ```sh
-hugo server -D -ignoreCache
+hugo server -D --ignoreCache
 ```
