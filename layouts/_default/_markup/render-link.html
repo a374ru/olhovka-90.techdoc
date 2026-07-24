@@ -7,9 +7,11 @@
 </head>
 <body>
     <!-- ОТКРЫТИЕ ссылки  HTTPS:// В ОТДЕЛЬНОЙ ВКЛАДКЕ -->
-<a href="{{ .Destination | safeURL }}" {{ with .Title}} title="{{ . }}" {{ end }}{{ if strings.HasPrefix .Destination "http" }} target="_blank" {{ end }}>{{ .Text | safeUrl }}</a>
+<a href="{{ .Destination | safeURL }}"
+   {{ with .Title }} title="{{ . }}"{{ end }}
+   {{ if strings.HasPrefix .Destination "http" }} target="_blank" rel="noopener noreferrer"{{ end }}>
+   {{ .Text | safeHTML }}
 
-
-</a> карниз
+</a>
 </body>
 </html>
