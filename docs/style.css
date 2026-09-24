@@ -59,6 +59,47 @@ footer {
 	font-size: 1rem;
 }
 
+details {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 0.5em 1em;
+  margin: 1em 0;
+  background: #ffffff;
+}
+
+details > summary {
+  list-style: none;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.25em 0;
+  cursor: pointer;
+  color: #ff4747;
+}
+
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+details > summary::before {
+  content: "";
+  width: 1.7em;
+  height: 1.7em;
+  background-color: #ff0000;
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='9 18 15 12 9 6'/></svg>") center / contain no-repeat;
+          mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='9 18 15 12 9 6'/></svg>") center / contain no-repeat;
+  transition: transform 0.25s ease;
+}
+
+details[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+details[open] > summary {
+  margin-bottom: 0.5em;
+}
+
 a {
 	color: var(--alink-var);
 	text-decoration: none;
@@ -128,7 +169,7 @@ blockquote p::before {
 	float: left;
 
 	content: url('/svg/ya-attention.svg');
-	display: inline-block;
+	/* display: inline-block; */
 	width: 5rem;
 	margin-right: 15px;
 	padding-bottom: 3hw;
@@ -290,9 +331,10 @@ h1:first-child {
 }
 
 h1:first-child::after {
+
 	float: inline-end;
 	content: url('/svg/ya-pointer-workspace.svg');
-	display: inline-block;
+	/* display: inline-block; */
 	width: 5dvw;
 	margin-right: 20px;
 
