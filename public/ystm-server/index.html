@@ -13,10 +13,11 @@
 <meta name="apple-mobile-web-app-title" content="Olhovka-90" />
 <link rel="manifest" href="/site.webmanifest" />
 	<meta name="description" content="Установка локального сервера Ubuntu на Mac mini 2010 
-Вот подробная пошаговая инструкция.
+Подробная пошаговая инструкция.
 Первая часть посвящена чистой установке Linux Ubuntu Server на ваш Mac mini 2010 (с учетом клавиатуры Windows и особенностей старых компьютеров Apple), а вторая часть — развертыванию Portainer и правильной подготовке системы.
 Часть 1.
-Установка Ubuntu Server на Mac mini 2010 Так как стандартная комбинация Alt при включении на клавиатурах Windows не всегда срабатывает на старых компьютерах Mac, мы используем альтернативный и самый надежный метод вызова загрузочного меню."> <meta name="viewport" content="width=device-width, initial-scale=1">
+Установка Ubuntu Server на Mac mini 2010
+Так как стандартная комбинация Alt при включении на клавиатурах Windows не всегда срабатывает на старых компьютерах Mac, мы используем альтернативный и самый надежный метод вызова загрузочного меню."> <meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="robots" content="index, follow">
 	<meta charset="utf-8">
 	<script src="/js/ystm.js"></script>
@@ -28,33 +29,42 @@
 		</header>
 		     <hr>
 		<article> <h2 id="установка-локального-сервера-ubuntu-на-mac-mini-2010">Установка локального сервера <code>Ubuntu</code> на <code>Mac mini 2010 </code></h2>
-<p><strong>Вот подробная пошаговая инструкция.</strong></p>
+<h4 id="подробная-пошаговая-инструкция">Подробная пошаговая инструкция.</h4>
 <p>Первая часть посвящена чистой установке <strong>Linux Ubuntu Server</strong> на ваш <code>Mac mini 2010</code> (с учетом клавиатуры Windows и особенностей старых компьютеров Apple), а вторая часть — развертыванию <code>Portainer</code> и правильной подготовке системы.</p>
 <h2 id="часть-1">Часть 1.</h2>
-<p>Установка <code>Ubuntu Server</code> на <code>Mac mini 2010</code> Так как стандартная комбинация Alt при включении на клавиатурах Windows не всегда срабатывает на старых компьютерах Mac, мы используем альтернативный и самый надежный метод вызова загрузочного меню.</p>
+<h4 id="установка-ubuntu-server-на-mac-mini-2010">Установка <code>Ubuntu Server</code> на <code>Mac mini 2010</code></h4>
+<p>Так как стандартная комбинация Alt при включении на клавиатурах Windows не всегда срабатывает на старых компьютерах Mac, мы используем альтернативный и самый надежный метод вызова загрузочного меню.</p>
 <h3 id="шаг-1">Шаг 1.</h3>
-<p><strong>Подготовка загрузочной флешки</strong></p>
+<h4 id="подготовка-загрузочной-флешки">Подготовка загрузочной флешки</h4>
 <p>Скачайте официальный <code>ISO-образ Ubuntu Server LTS (x64)</code> (архитектура Intel/AMD 64-bit). Скачайте и установите бесплатную программу <code>BalenaEtcher</code>. Вставьте флешку (минимум на 4 ГБ), откройте <code>BalenaEtcher</code>, выберите скачанный ISO-образ, вашу флешку и нажмите Flash.</p>
 <h3 id="шаг-2">Шаг 2.</h3>
-<p>Запуск <code>Mac mini</code> с флешки (через режим восстановления)Если при обычной перезагрузке с зажатой клавишей <code>Alt</code> (<code>Option</code>) появляется черный экран или Mac его игнорирует:Полностью выключите <code>Mac mini</code>.Включите его и сразу зажмите комбинацию <code>Ctrl + R</code> (аналог <code>Cmd + R</code> на <code>Windows</code>-клавиатуре). Держите, пока не появится логотип Apple или индикатор загрузки — <code>Mac</code> зайдет в Режим восстановления (<code>Recovery Mode</code>). В верхнем меню выберите Утилиты -&gt; Терминал.Введите команду, которая принудительно заставит Mac при следующей загрузке искать внешние накопители:</p>
+<h4 id="запуск-mac-mini-с-флешки-через-режим-восстановления">Запуск <code>Mac mini</code> с флешки (через режим восстановления)</h4>
+<p>Если при обычной перезагрузке с зажатой клавишей <code>Alt</code> (<code>Option</code>) появляется черный экран или Mac его игнорирует:Полностью выключите <code>Mac mini</code>.Включите его и сразу зажмите комбинацию <code>Ctrl + R</code> (аналог <code>Cmd + R</code> на <code>Windows</code>-клавиатуре). Держите, пока не появится логотип Apple или индикатор загрузки — <code>Mac</code> зайдет в Режим восстановления (<code>Recovery Mode</code>). В верхнем меню выберите Утилиты -&gt; Терминал.Введите команду, которая принудительно заставит Mac при следующей загрузке искать внешние накопители:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nvram boot-args<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;reboot=pci&#34;</span>
 </span></span></code></pre></div><p>Вставьте подготовленную флешку с <code>Ubuntu</code> в USB-порт <code>Mac mini</code>. Перезагрузите компьютер, зажав и удерживая клавишу <code>Alt</code> на клавиатуре. Теперь на экране гарантированно появится меню выбора дисков. Выберите желтый значок диска с надписью <code>EFI Boot</code>.</p>
 <h3 id="шаг-3">Шаг 3.</h3>
-<p>**Процесс установки Ubuntu Server **</p>
+<h4 id="процесс-установки-ubuntu-server">Процесс установки Ubuntu Server</h4>
 <p>После запуска установщика следуйте подсказкам на экране: Язык и раскладка: Выберите английский <code>English</code> — это стандарт для серверов, чтобы избежать проблем с кодировкой в консоли. Сеть <code>Network</code>: Подключите <code>Mac mini</code> кабелем к роутеру (так надежнее). Установщик автоматически получит <code>IP</code>-адрес по <code>DHCP</code>. Настройка разметки диска (<code>Storage Configuration</code>): Выберите <code>Use an entire disk </code>(Использовать весь диск). Если внутри <code>Mac mini</code> два диска, выберите тот, который планируете сделать системным (например, sda).</p>
+<blockquote>
+<blockquote>
 <p><strong>КРИТИЧЕСКИЙ МОМЕНТ</strong>: Снимите галочку с пункта <code>Set up this disk as an LVM group</code>. Если оставить <code>LVM</code> по умолчанию, <code>Ubuntu</code> заберет под систему <strong>только 100 ГБ</strong>, а <strong>остальные 200 ГБ</strong> останутся неразмеченными. Отключение LVM заставит систему сразу занять все 300 ГБ под нужды сервера.</p>
-<p>Профиль пользователя (Profile Setup):</p>
-<p><strong>Your server&rsquo;s name:</strong> введите имя вашего сервера (например, YSTM-SERVER). Pick a username / Password: создайте свою учетную запись администратора и надежный пароль.</p>
-<p><strong>SSH Setup:</strong> Обязательно отметьте галочкой пункт Install OpenSSH server. Это позволит вам управлять <code>Mac mini</code> удаленно с вашего основного компьютера.Featured Server Snaps: Ничего не выбирайте, просто нажмите Done. Дождитесь окончания процесса (появится надпись <code>Installation complete</code>) и нажмите <code>Reboot Now</code>. Извлеките флешку, когда система попросит об этом.</p>
+</blockquote>
+</blockquote>
+<h4 id="профиль-пользователя-profile-setup">Профиль пользователя (Profile Setup):</h4>
+<p><strong>Your server&rsquo;s name:</strong></p>
+<p>введите имя вашего сервера (например, YSTM-SERVER). Pick a username / Password: создайте свою учетную запись администратора и надежный пароль.</p>
+<p><strong>SSH Setup:</strong></p>
+<p>Обязательно отметьте галочкой пункт Install OpenSSH server. Это позволит вам управлять <code>Mac mini</code> удаленно с вашего основного компьютера.Featured Server Snaps: Ничего не выбирайте, просто нажмите Done. Дождитесь окончания процесса (появится надпись <code>Installation complete</code>) и нажмите <code>Reboot Now</code>. Извлеките флешку, когда система попросит об этом.</p>
 <h2 id="часть-2">Часть 2.</h2>
-<p>Настройка <code>Docker</code> и <code>Portainer</code> на сервере.</p>
+<h4 id="настройка-docker-и-portainer-на-сервере">Настройка <code>Docker</code> и <code>Portainer</code> на сервере.</h4>
 <p>После перезагрузки Mac mini начнет работать в режиме консоли. Теперь вы можете пересесть за ваш основной рабочий компьютер, открыть Терминал (на Mac) или Командную строку (на Windows) и подключиться к серверу удаленно:bashssh ваш_логин@IP_АДРЕС_СЕРВЕРА
 Используйте код с осторожностью.Шаг 1. Обновление системы и подготовка папокПеред установкой Docker обновим пакеты и сразу создадим физическую папку, где в будущем ваша камера Aqara и Mac будут хранить видеофайлы:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt update <span style="color:#f92672">&amp;&amp;</span> sudo apt upgrade -y
 </span></span><span style="display:flex;"><span>sudo mkdir -p /home/video_storage
 </span></span><span style="display:flex;"><span>sudo chmod -R <span style="color:#ae81ff">777</span> /home/video_storage
 </span></span></code></pre></div><h3 id="шаг-2-1">Шаг 2.</h3>
-<p>Автоматическая установка DockerУстановим официальный движок Docker одной командой:bashcurl -fsSL <!DOCTYPE html>
+<h4 id="автоматическая-установка-docker">Автоматическая установка Docker</h4>
+<p>Установим официальный движок Docker одной командой:bashcurl -fsSL <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -72,12 +82,12 @@
 <p>Используйте код с осторожностью. Добавим вашего пользователя в группу Docker, чтобы управлять контейнерами без постоянного ввода sudo:bashsudo usermod -aG docker $USER
 Используйте код с осторожностью.Чтобы изменения групп вступили в силу, переподключитесь к серверу по SSH (exit, а затем снова команда ssh &hellip;).</p>
 <h3 id="шаг-3-1">Шаг 3.</h3>
-<p><strong>Установка и запуск Portainer</strong></p>
+<h4 id="установка-и-запуск-portainer">Установка и запуск Portainer</h4>
 <p>Для хранения настроек самого Portainer создадим для него изолированный том в Docker:bashdocker volume create portainer_data
 Используйте код с осторожностью.Теперь запустим контейнер Portainer Community Edition:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker run -d -p 8000:8000 -p 9443:9443 -p 9000:9000 --name portainer --restart always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/var/io/portainer_data portainer/portainer-ce:latest
 </span></span></code></pre></div><h3 id="шаг-4">Шаг 4.</h3>
-<p><strong>Первый вход в Portainer</strong></p>
+<h4 id="первый-вход-в-portainer">Первый вход в Portainer</h4>
 <p>Откройте браузер на вашем компьютере и перейдите по адресу: <code>http://IP_АДРЕС_СЕРВЕРА:9000 например, http://192.168.1.157:9000</code>.</p>
 <p>При первом входе система попросит вас создать пароль администратора (минимальная длина — 12 символов). После создания пароля выберите среду Get Started (локальное окружение Docker). Перед вами откроется Dashboard (панель управления), где в разделе <code>Stacks</code> вы сможете развернуть конфигурацию файлового хранилища Samba для вашей камеры <code>Aqara G5 Pro</code> и <code>Mac</code>, которую мы успешно настроили ранее.Попробовать без персонализацииКакие настройки требуется внести для корректной работы smb? Для того чтобы Samba-сервер (<code>SMB</code>), запущенный в Docker через Portainer на вашем Mac mini, работал максимально корректно, быстро и без сбоев одновременно и с компьютерами Apple (<code>macOS</code>), и с умными камерами (<code>Aqara G5 Pro</code>), необходимо учесть ряд специфических настроек.Ниже приведен полный чек-лист настроек — от конфигурации самого контейнера до параметров Linux-системы и роутера.</p>
 <h3 id="1-настройки-внутри-portainer-docker-compose">1. Настройки внутри <code>Portainer Docker Compose</code></h3>

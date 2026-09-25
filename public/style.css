@@ -263,8 +263,8 @@ pre {
 }
 
 code {
-	font-size: 0.9em;
-	color: #00BCFF;
+	/* font-size: 0.9em; */
+	color: #777777;
 	font-weight: 400;
 	overflow-wrap: break-word;
 }
