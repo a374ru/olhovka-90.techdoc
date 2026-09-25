@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Restarting Mac Server | Ольховка-90</title>
+	<link rel="canonical" href="/">
+	<link rel='alternate' type='application/rss+xml' title="Ольховка-90 RSS" href='/index.xml'>
+	<link rel='stylesheet' type='text/css' href='/style.css'> 
+	<link rel="icon" href="/favicon.ico"> <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-title" content="Olhovka-90" />
+<link rel="manifest" href="/site.webmanifest" />
+	<meta name="description" content="Настройка автоматического перезапуска Mac mini c установленным сервером UBUNTU после отключения электричества
+📌 Введение
+Mac mini 2010 года (модель Macmini4,1) построен на чипсете NVIDIA MCP89. Поведение компьютера при восстановлении питания после сбоя управляется аппаратным регистром. В macOS эта функция включается галочкой «Запускать после сбоя питания» в настройках энергосбережения. Однако в Linux эта настройка не сохраняется между перезагрузками, поэтому её нужно применять автоматически при каждом старте системы.
+Инструкция рассчитана на Mac mini с уже установленным и работающим Linux."> <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="robots" content="index, follow">
+	<meta charset="utf-8">
+	<script src="/js/ystm.js"></script>
+</head>
+
+<body> <div class="container">
+	<main>
+		<header><a href="/"> <h1 id="tag_restarting Mac server">restarting Mac server</h1></a>
+		</header>
+		     <hr>
+		<article> <h2 id="настройка-автоматического-перезапуска-mac-mini-c-установленным-сервером-ubuntu-после-отключения-электричества">Настройка автоматического перезапуска <code>Mac mini</code> c установленным сервером <code>UBUNTU</code> после отключения электричества</h2>
+<h3 id="-введение">📌 Введение</h3>
+<p>Mac mini 2010 года (модель Macmini4,1) построен на чипсете NVIDIA MCP89. Поведение компьютера при восстановлении питания после сбоя управляется аппаратным регистром. В macOS эта функция включается галочкой «Запускать после сбоя питания» в настройках энергосбережения. Однако в Linux эта настройка <strong>не сохраняется между перезагрузками</strong>, поэтому её нужно применять автоматически при каждом старте системы.</p>
+<p>Инструкция рассчитана на Mac mini с уже установленным и работающим Linux.</p>
+<hr>
+<h3 id="-шаг-1-проверьте-модель-устройства">🔍 Шаг 1. Проверьте модель устройства</h3>
+<p>Откройте терминал и выполните команду:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat /sys/devices/virtual/dmi/id/product_name
+</span></span></code></pre></div><p>Ожидаемый результат:</p>
+<pre tabindex="0"><code>Macmini4,1
+</code></pre><p>Если вывод отличается, значит у вас другая модель, и адреса PCI-устройств ниже могут не подойти. В этом случае потребуется уточнить параметры для вашей модели.</p>
+<hr>
+<h3 id="-шаг-2-определите-адрес-pci-устройства">⚙️ Шаг 2. Определите адрес PCI-устройства</h3>
+<p>Выполните команду, чтобы найти LPC-мост NVIDIA:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>lspci | grep -i lpc
+</span></span></code></pre></div><p>Для <code>Macmini 4,1</code> вы должны увидеть примерно такую строку:</p>
+<pre tabindex="0"><code>00:03.0 ISA bridge: NVIDIA Corporation MCP89 LPC Bridge (rev a2)
+</code></pre><p>Запомните адрес <code>00:03.0</code> — он понадобится в следующих командах.</p>
+<hr>
+<h3 id="-шаг-3-проверьте-команду-вручную">🧪 Шаг 3. Проверьте команду вручную</h3>
+<p>Прежде чем настраивать автозапуск, убедитесь, что команда работает. Выполните:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo setpci -s 00:03.0 0x7b.b<span style="color:#f92672">=</span><span style="color:#ae81ff">19</span>
+</span></span></code></pre></div><p>Если команда отработала <strong>без ошибок</strong>, значит адрес и значение регистра подходят. Можно переходить к следующему шагу.</p>
+<blockquote>
+<p><strong>Пояснение:</strong> команда записывает значение <code>0x19</code> в регистр <code>0x7b</code>, включая режим «включаться автоматически после восстановления питания».</p>
+</blockquote>
+<hr>
+<h3 id="-шаг-4-создайте-службу-systemd">📝 Шаг 4. Создайте службу <code>systemd</code></h3>
+<p>Так как настройка сбрасывается после каждой перезагрузки, нужно, чтобы команда выполнялась автоматически при старте Linux.</p>
+<h3 id="41-создайте-файл-службы">4.1. Создайте файл службы</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo nano /etc/systemd/system/enable-autorestart.service
+</span></span></code></pre></div><h3 id="42-вставьте-следующее-содержимое">4.2. Вставьте следующее содержимое</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#66d9ef">[Unit]</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Description</span><span style="color:#f92672">=</span><span style="color:#e6db74">Enable Mac mini auto-restart after power failure</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">After</span><span style="color:#f92672">=</span><span style="color:#e6db74">default.target</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">[Service]</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Type</span><span style="color:#f92672">=</span><span style="color:#e6db74">oneshot</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ExecStart</span><span style="color:#f92672">=</span><span style="color:#e6db74">/usr/bin/setpci -s 00:03.0 0x7b.b=19</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">[Install]</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">WantedBy</span><span style="color:#f92672">=</span><span style="color:#e6db74">default.target</span>
+</span></span></code></pre></div><h3 id="43-сохраните-и-выйдите">4.3. Сохраните и выйдите</h3>
+<ul>
+<li><code>Ctrl+O</code> — сохранить</li>
+<li><code>Enter</code> — подтвердить имя файла</li>
+<li><code>Ctrl+X</code> — выйти из редактора</li>
+</ul>
+<h3 id="44-активируйте-службу">4.4. Активируйте службу</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo systemctl daemon-reload
+</span></span><span style="display:flex;"><span>sudo systemctl enable enable-autorestart.service
+</span></span></code></pre></div><hr>
+<h2 id="-шаг-5-проверьте-результат">✅ Шаг 5. Проверьте результат</h2>
+<h3 id="51-проверка-статуса-службы">5.1. Проверка статуса службы</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>systemctl status enable-autorestart.service
+</span></span></code></pre></div><p>Успешный статус — <code>active (exited)</code> или аналогичный.</p>
+<h3 id="52-реальный-тест-с-отключением-питания">5.2. Реальный тест с отключением питания</h3>
+<ol>
+<li>
+<p>Корректно выключите сервер:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo shutdown -h now
+</span></span></code></pre></div></li>
+<li>
+<p>Дождитесь полного выключения.</p>
+</li>
+<li>
+<p><strong>Выдерните кабель питания</strong> и подождите около 30 секунд.</p>
+</li>
+<li>
+<p>Вставьте кабель питания обратно.</p>
+</li>
+</ol>
+<p><strong>Ожидаемый результат:</strong> Mac mini должен запуститься сам, без нажатия кнопки питания.</p>
+<hr>
+<h2 id="-важные-замечания">⚠️ Важные замечания</h2>
+<table>
+  <thead>
+      <tr>
+          <th>Пункт</th>
+          <th>Пояснение</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Настройка не сохраняется</td>
+          <td>Значение регистра сбрасывается при каждом выключении, поэтому нужна служба systemd</td>
+      </tr>
+      <tr>
+          <td>Разные модели — разные параметры</td>
+          <td>Не применяйте адреса и значения от других моделей Mac mini</td>
+      </tr>
+      <tr>
+          <td>Защита оборудования</td>
+          <td>Рекомендуется использовать ИБП (UPS), чтобы избежать частых сбоев питания и повреждения файловой системы</td>
+      </tr>
+      <tr>
+          <td>Сначала выключите, потом тестируйте</td>
+          <td>Перед тестом с выдёргиванием кабеля обязательно корректно выключите систему</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h2 id="-если-что-то-не-работает">🔧 Если что-то не работает</h2>
+<ol>
+<li>
+<p><strong>Команда <code>setpci</code> не найдена</strong> — установите пакет <code>pciutils</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Debian/Ubuntu</span>
+</span></span><span style="display:flex;"><span>sudo apt install pciutils
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Fedora/RHEL</span>
+</span></span><span style="display:flex;"><span>sudo dnf install pciutils
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Arch</span>
+</span></span><span style="display:flex;"><span>sudo pacman -S pciutils
+</span></span></code></pre></div></li>
+<li>
+<p><strong>Адрес устройства другой</strong> — проверьте вывод <code>lspci | grep -i lpc</code> и замените <code>00:03.0</code> в командах и в файле службы на фактический.</p>
+</li>
+<li>
+<p><strong>Служба не запускается</strong> — проверьте логи:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>journalctl -u enable-autorestart.service
+</span></span></code></pre></div></li>
+<li>
+<p><strong>После выдёргивания кабеля Mac mini не включается</strong> — попробуйте другое значение регистра (<code>0x1b</code>, <code>0x1a</code>) и повторите тест. Значения могут отличаться в зависимости от ревизии платы.</p>
+</li>
+</ol>
+<hr>
+<h2 id="-краткая-шпаргалка">📋 Краткая шпаргалка</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 1. Проверить модель</span>
+</span></span><span style="display:flex;"><span>cat /sys/devices/virtual/dmi/id/product_name
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. Найти адрес LPC-моста</span>
+</span></span><span style="display:flex;"><span>lspci | grep -i lpc
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3. Проверить команду вручную</span>
+</span></span><span style="display:flex;"><span>sudo setpci -s 00:03.0 0x7b.b<span style="color:#f92672">=</span><span style="color:#ae81ff">19</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 4. Создать службу</span>
+</span></span><span style="display:flex;"><span>sudo nano /etc/systemd/system/enable-autorestart.service
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># (вставить содержимое из Шага 4.2)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 5. Активировать службу</span>
+</span></span><span style="display:flex;"><span>sudo systemctl daemon-reload
+</span></span><span style="display:flex;"><span>sudo systemctl enable enable-autorestart.service
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 6. Проверить статус</span>
+</span></span><span style="display:flex;"><span>systemctl status enable-autorestart.service
+</span></span></code></pre></div><h4 id="готово">Готово.</h4>
+<p>Теперь ваш <code>Mac mini</code> под управлением <code>Linux</code> будет автоматически включаться после восстановления питания.</p>
+<hr>
+<h3 id="вы-также-можете-ознакомиться-с-полезными-командами-терминала-здесь--"><!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    
+    <a href="/terminal"  >  Вы также можете ознакомиться с полезными командами терминала здесь … 🔗 </a>
+</body>
+
+</html></h3>
+  <hr>
+
+
+</article>
+	</main>  
+
+	<footer>
+	<a href="/"><span id="tag_restarting Mac server">Yabo System © Third Millennium</span></a>
+		
+	</footer>  
+</div>
+	</body>
+
+</html>

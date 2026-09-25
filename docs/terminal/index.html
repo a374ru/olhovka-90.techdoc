@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Полезные Команды | Ольховка-90</title>
+	<link rel="canonical" href="/">
+	<link rel='alternate' type='application/rss+xml' title="Ольховка-90 RSS" href='/index.xml'>
+	<link rel='stylesheet' type='text/css' href='/style.css'> 
+	<link rel="icon" href="/favicon.ico"> <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-title" content="Olhovka-90" />
+<link rel="manifest" href="/site.webmanifest" />
+	<meta name="description" content="🐧 Шпаргалка: 33 основные команды для управления Linux-сервером
+
+Формат: команда — краткое описание &#43; пример
+
+
+🖥️ 1. Информация о системе и хосте
+1. hostname — показать имя хоста
+hostname
+hostname -I          # показать IP-адреса
+hostname -f          # FQDN
+2. hostnamectl — замена имени хоста
+hostnamectl set-hostname new-server-name
+hostnamectl                            # проверить
+3. uname — информация о ядре и системе
+uname -a
+uname -r            # версия ядра
+4. uptime — время работы и нагрузка
+uptime
+5. whoami — текущий пользователь
+whoami
+id
+
+💾 2. Диски и файловые системы
+6. lsblk — список блочных устройств
+lsblk
+lsblk -f           # с файловыми системами
+7. df — свободное место на дисках
+df -h
+df -h /var         # по конкретному разделу
+8. du — размер каталогов/файлов
+du -sh /var/log/*
+du -sh * | sort -h
+9. fdisk / parted — разметка дисков (расширение пространства)
+fdisk -l
+fdisk /dev/sdb
+parted /dev/sdb resizepart 1 100%
+10. growpart / resize2fs / xfs_growfs — расширение ФС
+growpart /dev/sda 3
+resize2fs /dev/sda3      # ext4
+xfs_growfs /             # xfs
+11. mount / umount — монтирование
+mount /dev/sdb1 /mnt
+umount /mnt
+mount | column -t
+
+📁 3. Работа с файлами и каталогами
+12. ls — список файлов
+ls -lah
+ls -lt              # сортировка по времени
+13. cd — переход по каталогам
+cd /etc
+cd ~
+cd -
+14. cp / mv / rm — копирование, перемещение, удаление
+cp -r /src /dst
+mv file /tmp/
+rm -rf /tmp/old
+15. mkdir / rmdir — создание/удаление каталогов
+mkdir -p /opt/app/logs
+16. find — поиск файлов
+find /var -name &#34;*.log&#34; -mtime &#43;7
+find / -size &#43;100M
+17. tar — архивирование
+tar -czvf backup.tar.gz /etc
+tar -xzvf backup.tar.gz -C /tmp
+
+📝 4. Просмотр и редактирование
+18. cat / less / tail / head
+cat /etc/hosts
+less /var/log/syslog
+tail -f /var/log/nginx/access.log
+head -n 20 file.txt
+19. nano / vim — редакторы
+nano /etc/nginx/nginx.conf
+vim /etc/fstab
+20. grep — поиск по содержимому
+grep -ri &#34;error&#34; /var/log/
+grep -v &#34;^#&#34; config.conf
+21. sed / awk — обработка текста
+sed -i &#39;s/old/new/g&#39; file.txt
+awk &#39;{print $1, $3}&#39; file.txt
+
+⚙️ 5. Процессы и службы
+22. ps / top / htop — мониторинг процессов
+ps aux | grep nginx
+top
+htop
+23. kill / pkill / killall
+kill -9 1234
+pkill -f &#34;python app.py&#34;
+24. systemctl — управление службами
+systemctl status nginx
+systemctl start|stop|restart nginx
+systemctl enable|disable nginx
+systemctl list-units --type=service
+25. journalctl — логи systemd
+journalctl -u nginx -f
+journalctl --since &#34;1 hour ago&#34;
+
+🌐 6. Сеть
+26. ip — сетевые интерфейсы
+ip a
+ip r
+ip link set eth0 up
+27. ss / netstat — открытые порты
+ss -tulnp
+netstat -tulnp
+28. ping / traceroute / curl / wget
+ping -c 4 8.8.8.8
+traceroute ya.ru
+curl -I https://example.com
+wget https://example.com/file.tar.gz
+29. ssh / scp / rsync — удалённый доступ и копирование
+ssh user@server
+scp file user@server:/path/
+rsync -avz /src/ user@server:/dst/
+
+👤 7. Пользователи и права
+30. useradd / passwd / usermod
+useradd -m -s /bin/bash devops
+passwd devops
+usermod -aG sudo devops
+31. chmod / chown
+chmod 755 script.sh
+chown -R www-data:www-data /var/www
+32. sudo / su — повышение прав
+sudo -i
+su - user
+
+📦 8. Пакеты и обновления
+33. apt / dnf / yum — управление пакетами
+# Debian/Ubuntu
+apt update &amp;&amp; apt upgrade -y
+apt install nginx
+
+# RHEL/CentOS/Fedora
+dnf update -y
+dnf install nginx
+
+🧰 Бонус: полезные мелочи
+
+  
+      
+          Команда
+          Назначение
+      
+  
+  
+      
+          history
+          история команд
+      
+      
+          crontab -e
+          планировщик задач
+      
+      
+          date / timedatectl
+          время и часовой пояс
+      
+      
+          reboot / shutdown -h now
+          перезагрузка / выключение
+      
+      
+          df -i
+          проверка inode
+      
+      
+          free -h
+          оперативная память
+      
+      
+          lsof -i :80
+          кто занял порт
+      
+  
+
+
+💡 Совет: сохрани в ~/.bashrc алиасы:"> <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="robots" content="index, follow">
+	<meta charset="utf-8">
+	<script src="/js/ystm.js"></script>
+</head>
+
+<body> <div class="container">
+	<main>
+		<header><a href="/"> <h1 id="tag_Полезные команды">Полезные команды</h1></a>
+		</header>
+		     <hr>
+		<article> <h4 id="-шпаргалка-33-основные-команды-для-управления-linux-сервером">🐧 Шпаргалка: 33 основные команды для управления Linux-сервером</h4>
+<ul>
+<li>Формат: <strong>команда</strong> — краткое описание + пример</li>
+</ul>
+<hr>
+<h2 id="-1-информация-о-системе-и-хосте">🖥️ 1. Информация о системе и хосте</h2>
+<h3 id="1-hostname--показать-имя-хоста">1. <code>hostname</code> — показать имя хоста</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hostname
+</span></span><span style="display:flex;"><span>hostname -I          <span style="color:#75715e"># показать IP-адреса</span>
+</span></span><span style="display:flex;"><span>hostname -f          <span style="color:#75715e"># FQDN</span>
+</span></span></code></pre></div><h3 id="2-hostnamectl--замена-имени-хоста">2. <code>hostnamectl</code> — замена имени хоста</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hostnamectl set-hostname new-server-name
+</span></span><span style="display:flex;"><span>hostnamectl                            <span style="color:#75715e"># проверить</span>
+</span></span></code></pre></div><h3 id="3-uname--информация-о-ядре-и-системе">3. <code>uname</code> — информация о ядре и системе</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>uname -a
+</span></span><span style="display:flex;"><span>uname -r            <span style="color:#75715e"># версия ядра</span>
+</span></span></code></pre></div><h3 id="4-uptime--время-работы-и-нагрузка">4. <code>uptime</code> — время работы и нагрузка</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>uptime
+</span></span></code></pre></div><h3 id="5-whoami--текущий-пользователь">5. <code>whoami</code> — текущий пользователь</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>whoami
+</span></span><span style="display:flex;"><span>id
+</span></span></code></pre></div><hr>
+<h2 id="-2-диски-и-файловые-системы">💾 2. Диски и файловые системы</h2>
+<h3 id="6-lsblk--список-блочных-устройств">6. <code>lsblk</code> — список блочных устройств</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>lsblk
+</span></span><span style="display:flex;"><span>lsblk -f           <span style="color:#75715e"># с файловыми системами</span>
+</span></span></code></pre></div><h3 id="7-df--свободное-место-на-дисках">7. <code>df</code> — свободное место на дисках</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>df -h
+</span></span><span style="display:flex;"><span>df -h /var         <span style="color:#75715e"># по конкретному разделу</span>
+</span></span></code></pre></div><h3 id="8-du--размер-каталоговфайлов">8. <code>du</code> — размер каталогов/файлов</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>du -sh /var/log/*
+</span></span><span style="display:flex;"><span>du -sh * | sort -h
+</span></span></code></pre></div><h3 id="9-fdisk--parted--разметка-дисков-расширение-пространства">9. <code>fdisk</code> / <code>parted</code> — разметка дисков (расширение пространства)</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>fdisk -l
+</span></span><span style="display:flex;"><span>fdisk /dev/sdb
+</span></span><span style="display:flex;"><span>parted /dev/sdb resizepart <span style="color:#ae81ff">1</span> 100%
+</span></span></code></pre></div><h3 id="10-growpart--resize2fs--xfs_growfs--расширение-фс">10. <code>growpart</code> / <code>resize2fs</code> / <code>xfs_growfs</code> — расширение ФС</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>growpart /dev/sda <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>resize2fs /dev/sda3      <span style="color:#75715e"># ext4</span>
+</span></span><span style="display:flex;"><span>xfs_growfs /             <span style="color:#75715e"># xfs</span>
+</span></span></code></pre></div><h3 id="11-mount--umount--монтирование">11. <code>mount</code> / <code>umount</code> — монтирование</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mount /dev/sdb1 /mnt
+</span></span><span style="display:flex;"><span>umount /mnt
+</span></span><span style="display:flex;"><span>mount | column -t
+</span></span></code></pre></div><hr>
+<h2 id="-3-работа-с-файлами-и-каталогами">📁 3. Работа с файлами и каталогами</h2>
+<h3 id="12-ls--список-файлов">12. <code>ls</code> — список файлов</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ls -lah
+</span></span><span style="display:flex;"><span>ls -lt              <span style="color:#75715e"># сортировка по времени</span>
+</span></span></code></pre></div><h3 id="13-cd--переход-по-каталогам">13. <code>cd</code> — переход по каталогам</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd /etc
+</span></span><span style="display:flex;"><span>cd ~
+</span></span><span style="display:flex;"><span>cd -
+</span></span></code></pre></div><h3 id="14-cp--mv--rm--копирование-перемещение-удаление">14. <code>cp</code> / <code>mv</code> / <code>rm</code> — копирование, перемещение, удаление</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cp -r /src /dst
+</span></span><span style="display:flex;"><span>mv file /tmp/
+</span></span><span style="display:flex;"><span>rm -rf /tmp/old
+</span></span></code></pre></div><h3 id="15-mkdir--rmdir--созданиеудаление-каталогов">15. <code>mkdir</code> / <code>rmdir</code> — создание/удаление каталогов</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mkdir -p /opt/app/logs
+</span></span></code></pre></div><h3 id="16-find--поиск-файлов">16. <code>find</code> — поиск файлов</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>find /var -name <span style="color:#e6db74">&#34;*.log&#34;</span> -mtime +7
+</span></span><span style="display:flex;"><span>find / -size +100M
+</span></span></code></pre></div><h3 id="17-tar--архивирование">17. <code>tar</code> — архивирование</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>tar -czvf backup.tar.gz /etc
+</span></span><span style="display:flex;"><span>tar -xzvf backup.tar.gz -C /tmp
+</span></span></code></pre></div><hr>
+<h2 id="-4-просмотр-и-редактирование">📝 4. Просмотр и редактирование</h2>
+<h3 id="18-cat--less--tail--head">18. <code>cat</code> / <code>less</code> / <code>tail</code> / <code>head</code></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat /etc/hosts
+</span></span><span style="display:flex;"><span>less /var/log/syslog
+</span></span><span style="display:flex;"><span>tail -f /var/log/nginx/access.log
+</span></span><span style="display:flex;"><span>head -n <span style="color:#ae81ff">20</span> file.txt
+</span></span></code></pre></div><h3 id="19-nano--vim--редакторы">19. <code>nano</code> / <code>vim</code> — редакторы</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nano /etc/nginx/nginx.conf
+</span></span><span style="display:flex;"><span>vim /etc/fstab
+</span></span></code></pre></div><h3 id="20-grep--поиск-по-содержимому">20. <code>grep</code> — поиск по содержимому</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>grep -ri <span style="color:#e6db74">&#34;error&#34;</span> /var/log/
+</span></span><span style="display:flex;"><span>grep -v <span style="color:#e6db74">&#34;^#&#34;</span> config.conf
+</span></span></code></pre></div><h3 id="21-sed--awk--обработка-текста">21. <code>sed</code> / <code>awk</code> — обработка текста</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sed -i <span style="color:#e6db74">&#39;s/old/new/g&#39;</span> file.txt
+</span></span><span style="display:flex;"><span>awk <span style="color:#e6db74">&#39;{print $1, $3}&#39;</span> file.txt
+</span></span></code></pre></div><hr>
+<h2 id="-5-процессы-и-службы">⚙️ 5. Процессы и службы</h2>
+<h3 id="22-ps--top--htop--мониторинг-процессов">22. <code>ps</code> / <code>top</code> / <code>htop</code> — мониторинг процессов</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ps aux | grep nginx
+</span></span><span style="display:flex;"><span>top
+</span></span><span style="display:flex;"><span>htop
+</span></span></code></pre></div><h3 id="23-kill--pkill--killall">23. <code>kill</code> / <code>pkill</code> / <code>killall</code></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kill -9 <span style="color:#ae81ff">1234</span>
+</span></span><span style="display:flex;"><span>pkill -f <span style="color:#e6db74">&#34;python app.py&#34;</span>
+</span></span></code></pre></div><h3 id="24-systemctl--управление-службами">24. <code>systemctl</code> — управление службами</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>systemctl status nginx
+</span></span><span style="display:flex;"><span>systemctl start|stop|restart nginx
+</span></span><span style="display:flex;"><span>systemctl enable|disable nginx
+</span></span><span style="display:flex;"><span>systemctl list-units --type<span style="color:#f92672">=</span>service
+</span></span></code></pre></div><h3 id="25-journalctl--логи-systemd">25. <code>journalctl</code> — логи systemd</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>journalctl -u nginx -f
+</span></span><span style="display:flex;"><span>journalctl --since <span style="color:#e6db74">&#34;1 hour ago&#34;</span>
+</span></span></code></pre></div><hr>
+<h2 id="-6-сеть">🌐 6. Сеть</h2>
+<h3 id="26-ip--сетевые-интерфейсы">26. <code>ip</code> — сетевые интерфейсы</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ip a
+</span></span><span style="display:flex;"><span>ip r
+</span></span><span style="display:flex;"><span>ip link set eth0 up
+</span></span></code></pre></div><h3 id="27-ss--netstat--открытые-порты">27. <code>ss</code> / <code>netstat</code> — открытые порты</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ss -tulnp
+</span></span><span style="display:flex;"><span>netstat -tulnp
+</span></span></code></pre></div><h3 id="28-ping--traceroute--curl--wget">28. <code>ping</code> / <code>traceroute</code> / <code>curl</code> / <code>wget</code></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ping -c <span style="color:#ae81ff">4</span> 8.8.8.8
+</span></span><span style="display:flex;"><span>traceroute ya.ru
+</span></span><span style="display:flex;"><span>curl -I https://example.com
+</span></span><span style="display:flex;"><span>wget https://example.com/file.tar.gz
+</span></span></code></pre></div><h3 id="29-ssh--scp--rsync--удалённый-доступ-и-копирование">29. <code>ssh</code> / <code>scp</code> / <code>rsync</code> — удалённый доступ и копирование</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh user@server
+</span></span><span style="display:flex;"><span>scp file user@server:/path/
+</span></span><span style="display:flex;"><span>rsync -avz /src/ user@server:/dst/
+</span></span></code></pre></div><hr>
+<h2 id="-7-пользователи-и-права">👤 7. Пользователи и права</h2>
+<h3 id="30-useradd--passwd--usermod">30. <code>useradd</code> / <code>passwd</code> / <code>usermod</code></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>useradd -m -s /bin/bash devops
+</span></span><span style="display:flex;"><span>passwd devops
+</span></span><span style="display:flex;"><span>usermod -aG sudo devops
+</span></span></code></pre></div><h3 id="31-chmod--chown">31. <code>chmod</code> / <code>chown</code></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>chmod <span style="color:#ae81ff">755</span> script.sh
+</span></span><span style="display:flex;"><span>chown -R www-data:www-data /var/www
+</span></span></code></pre></div><h3 id="32-sudo--su--повышение-прав">32. <code>sudo</code> / <code>su</code> — повышение прав</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo -i
+</span></span><span style="display:flex;"><span>su - user
+</span></span></code></pre></div><hr>
+<h2 id="-8-пакеты-и-обновления">📦 8. Пакеты и обновления</h2>
+<h3 id="33-apt--dnf--yum--управление-пакетами">33. <code>apt</code> / <code>dnf</code> / <code>yum</code> — управление пакетами</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Debian/Ubuntu</span>
+</span></span><span style="display:flex;"><span>apt update <span style="color:#f92672">&amp;&amp;</span> apt upgrade -y
+</span></span><span style="display:flex;"><span>apt install nginx
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># RHEL/CentOS/Fedora</span>
+</span></span><span style="display:flex;"><span>dnf update -y
+</span></span><span style="display:flex;"><span>dnf install nginx
+</span></span></code></pre></div><hr>
+<h2 id="-бонус-полезные-мелочи">🧰 Бонус: полезные мелочи</h2>
+<table>
+  <thead>
+      <tr>
+          <th>Команда</th>
+          <th>Назначение</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>history</code></td>
+          <td>история команд</td>
+      </tr>
+      <tr>
+          <td><code>crontab -e</code></td>
+          <td>планировщик задач</td>
+      </tr>
+      <tr>
+          <td><code>date</code> / <code>timedatectl</code></td>
+          <td>время и часовой пояс</td>
+      </tr>
+      <tr>
+          <td><code>reboot</code> / <code>shutdown -h now</code></td>
+          <td>перезагрузка / выключение</td>
+      </tr>
+      <tr>
+          <td><code>df -i</code></td>
+          <td>проверка inode</td>
+      </tr>
+      <tr>
+          <td><code>free -h</code></td>
+          <td>оперативная память</td>
+      </tr>
+      <tr>
+          <td><code>lsof -i :80</code></td>
+          <td>кто занял порт</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<p>💡 <strong>Совет:</strong> сохрани в <code>~/.bashrc</code> алиасы:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>alias ll<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;ls -lah&#39;</span>
+</span></span><span style="display:flex;"><span>alias ..<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;cd ..&#39;</span>
+</span></span><span style="display:flex;"><span>alias ports<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;ss -tulnp&#39;</span>
+</span></span><span style="display:flex;"><span>alias logs<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;journalctl -xe&#39;</span>
+</span></span></code></pre></div><p>📌 Держи под рукой — 90% задач решается этими 33 командами.</p>
+  <hr>
+
+
+</article>
+	</main>  
+
+	<footer>
+	<a href="/"><span id="tag_Полезные команды">Yabo System © Third Millennium</span></a>
+		
+	</footer>  
+</div>
+	</body>
+
+</html>

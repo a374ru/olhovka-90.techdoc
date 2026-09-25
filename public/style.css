@@ -258,7 +258,7 @@ nav {
 pre {
 	overflow: auto;
 	padding: 0.5rem 1rem 0.8rem 2rem;
-	background-color: #d2d2d229;
+	background-color: #d2d2d27f;
 	font-size: 1.3rem;
 	margin: 2rem 0;
 	border-radius: 7px;
@@ -266,7 +266,7 @@ pre {
 
 code {
 	/* font-size: 0.9em; */
-	color: #777777;
+	color: #9584ba;
 	font-weight: 400;
 	overflow-wrap: break-word;
 	font-family: inherit;

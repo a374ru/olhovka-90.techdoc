@@ -39,7 +39,7 @@
 <p>Скачайте официальный <code>ISO-образ Ubuntu Server LTS (x64)</code> (архитектура Intel/AMD 64-bit). Скачайте и установите бесплатную программу <code>BalenaEtcher</code>. Вставьте флешку (минимум на 4 ГБ), откройте <code>BalenaEtcher</code>, выберите скачанный ISO-образ, вашу флешку и нажмите Flash.</p>
 <h3 id="шаг-2">Шаг 2.</h3>
 <h4 id="запуск-mac-mini-с-флешки-через-режим-восстановления">Запуск <code>Mac mini</code> с флешки (через режим восстановления)</h4>
-<p>Если при обычной перезагрузке с зажатой клавишей <code>Alt</code> (<code>Option</code>) появляется черный экран или Mac его игнорирует:Полностью выключите <code>Mac mini</code>.Включите его и сразу зажмите комбинацию <code>Ctrl + R</code> (аналог <code>Cmd + R</code> на <code>Windows</code>-клавиатуре). Держите, пока не появится логотип Apple или индикатор загрузки — <code>Mac</code> зайдет в Режим восстановления (<code>Recovery Mode</code>). В верхнем меню выберите Утилиты -&gt; Терминал.Введите команду, которая принудительно заставит Mac при следующей загрузке искать внешние накопители:</p>
+<p>Если при обычной перезагрузке с зажатой клавишей <code>Alt</code> (<code>Option</code>) появляется черный экран или Mac его игнорирует:Полностью выключите <code>Mac mini</code>. Включите его и сразу зажмите комбинацию <code>Ctrl + R</code> (аналог <code>Cmd + R</code> на <code>Windows</code>-клавиатуре). Держите, пока не появится логотип Apple или индикатор загрузки — <code>Mac</code> зайдет в Режим восстановления (<code>Recovery Mode</code>). В верхнем меню выберите Утилиты -&gt; Терминал.Введите команду, которая принудительно заставит Mac при следующей загрузке искать внешние накопители:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nvram boot-args<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;reboot=pci&#34;</span>
 </span></span></code></pre></div><p>Вставьте подготовленную флешку с <code>Ubuntu</code> в USB-порт <code>Mac mini</code>. Перезагрузите компьютер, зажав и удерживая клавишу <code>Alt</code> на клавиатуре. Теперь на экране гарантированно появится меню выбора дисков. Выберите желтый значок диска с надписью <code>EFI Boot</code>.</p>
 <h3 id="шаг-3">Шаг 3.</h3>
@@ -57,41 +57,38 @@
 <p>Обязательно отметьте галочкой пункт Install OpenSSH server. Это позволит вам управлять <code>Mac mini</code> удаленно с вашего основного компьютера.Featured Server Snaps: Ничего не выбирайте, просто нажмите Done. Дождитесь окончания процесса (появится надпись <code>Installation complete</code>) и нажмите <code>Reboot Now</code>. Извлеките флешку, когда система попросит об этом.</p>
 <h2 id="часть-2">Часть 2.</h2>
 <h4 id="настройка-docker-и-portainer-на-сервере">Настройка <code>Docker</code> и <code>Portainer</code> на сервере.</h4>
-<p>После перезагрузки Mac mini начнет работать в режиме консоли. Теперь вы можете пересесть за ваш основной рабочий компьютер, открыть Терминал (на Mac) или Командную строку (на Windows) и подключиться к серверу удаленно:bashssh ваш_логин@IP_АДРЕС_СЕРВЕРА
-Используйте код с осторожностью.Шаг 1. Обновление системы и подготовка папокПеред установкой Docker обновим пакеты и сразу создадим физическую папку, где в будущем ваша камера Aqara и Mac будут хранить видеофайлы:</p>
+<p>После перезагрузки Mac mini начнет работать в режиме консоли. Теперь вы можете пересесть за ваш основной рабочий компьютер, открыть Терминал (на Mac) или Командную строку (на Windows) и подключиться к серверу удаленно c вашим паролем и IP-адресом сервера:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh   your_login@ip_adress
+</span></span></code></pre></div><p>Далее терминал предложит ввести пароль, который был установлен в настройках сервера. Если пароль правильный, тогда вы перейдёте на диск сервера.</p>
+<h3 id="шаг-1-1">Шаг 1.</h3>
+<h4 id="обновление-системы-и-подготовка-папок-перед-установкой-docker">Обновление системы и подготовка папок перед установкой <code>Docker</code></h4>
+<p>Обновим пакеты и сразу создадим физическую папку, где в будущем ваши камеры <code>Aqara</code>  будут хранить видеофайлы:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt update <span style="color:#f92672">&amp;&amp;</span> sudo apt upgrade -y
 </span></span><span style="display:flex;"><span>sudo mkdir -p /home/video_storage
 </span></span><span style="display:flex;"><span>sudo chmod -R <span style="color:#ae81ff">777</span> /home/video_storage
 </span></span></code></pre></div><h3 id="шаг-2-1">Шаг 2.</h3>
 <h4 id="автоматическая-установка-docker">Автоматическая установка Docker</h4>
-<p>Установим официальный движок Docker одной командой:bashcurl -fsSL <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
-<body>
-    
-    <a href="https://docker.com"   target="_blank" rel="noopener noreferrer" > https://docker.com </a>
-</body>
-
-</html> -o get-docker.sh &amp;&amp; sudo sh get-docker.sh</p>
-<p>Используйте код с осторожностью. Добавим вашего пользователя в группу Docker, чтобы управлять контейнерами без постоянного ввода sudo:bashsudo usermod -aG docker $USER
-Используйте код с осторожностью.Чтобы изменения групп вступили в силу, переподключитесь к серверу по SSH (exit, а затем снова команда ssh &hellip;).</p>
+<p>Установим официальный движок <code>Docker</code> одной командой:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -fsSL https://docker.com -o get-docker.sh <span style="color:#f92672">&amp;&amp;</span> sudo sh get-docker.sh
+</span></span></code></pre></div><p>Добавим вашего пользователя в группу <code>Docker</code>, чтобы управлять контейнерами без постоянного ввода sudo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo usermod -aG docker $USER
+</span></span></code></pre></div><p>Чтобы изменения групп вступили в силу, переподключитесь к серверу по SSH (exit, а затем снова команда ssh &hellip;).</p>
 <h3 id="шаг-3-1">Шаг 3.</h3>
-<h4 id="установка-и-запуск-portainer">Установка и запуск Portainer</h4>
-<p>Для хранения настроек самого Portainer создадим для него изолированный том в Docker:bashdocker volume create portainer_data
-Используйте код с осторожностью.Теперь запустим контейнер Portainer Community Edition:</p>
+<h4 id="установка-и-запуск-portainer">Установка и запуск <code>Portainer</code></h4>
+<p>Для хранения настроек самого <code>Portainer</code> создадим для него изолированный том в Docker:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker volume create portainer_data
+</span></span></code></pre></div><p>Теперь запустим контейнер Portainer Community Edition:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker run -d -p 8000:8000 -p 9443:9443 -p 9000:9000 --name portainer --restart always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/var/io/portainer_data portainer/portainer-ce:latest
 </span></span></code></pre></div><h3 id="шаг-4">Шаг 4.</h3>
 <h4 id="первый-вход-в-portainer">Первый вход в Portainer</h4>
-<p>Откройте браузер на вашем компьютере и перейдите по адресу: <code>http://IP_АДРЕС_СЕРВЕРА:9000 например, http://192.168.1.157:9000</code>.</p>
-<p>При первом входе система попросит вас создать пароль администратора (минимальная длина — 12 символов). После создания пароля выберите среду Get Started (локальное окружение Docker). Перед вами откроется Dashboard (панель управления), где в разделе <code>Stacks</code> вы сможете развернуть конфигурацию файлового хранилища Samba для вашей камеры <code>Aqara G5 Pro</code> и <code>Mac</code>, которую мы успешно настроили ранее.Попробовать без персонализацииКакие настройки требуется внести для корректной работы smb? Для того чтобы Samba-сервер (<code>SMB</code>), запущенный в Docker через Portainer на вашем Mac mini, работал максимально корректно, быстро и без сбоев одновременно и с компьютерами Apple (<code>macOS</code>), и с умными камерами (<code>Aqara G5 Pro</code>), необходимо учесть ряд специфических настроек.Ниже приведен полный чек-лист настроек — от конфигурации самого контейнера до параметров Linux-системы и роутера.</p>
+<p>Откройте браузер на вашем компьютере и перейдите по адресу: http://ip_адрес_сервера:9000
+например:</p>
+<ul>
+<li><code>http://192.168.1.157:9000</code></li>
+</ul>
+<p>При первом входе система попросит вас создать пароль администратора (минимальная длина — 12 символов). После создания пароля выберите среду <code>Get Started</code> (локальное окружение <code>Docker</code>). Перед вами откроется <code>Dashboard</code> (панель управления), где в разделе <code>Stacks</code> вы сможете развернуть конфигурацию файлового хранилища Samba для вашей камеры <code>Aqara G5 Pro</code> и <code>Mac</code>, которую мы успешно настроили ранее.Попробовать без персонализацииКакие настройки требуется внести для корректной работы smb? Для того чтобы Samba-сервер <code>SMB</code>, запущенный в Docker через Portainer на вашем Mac mini, работал максимально корректно, быстро и без сбоев одновременно и с компьютерами Apple <code>macOS</code>, и с умными камерами <code>Aqara G5 Pro</code>, необходимо учесть ряд специфических настроек. Ниже приведен полный чек-лист настроек — от конфигурации самого контейнера до параметров Linux-системы и роутера.</p>
 <h3 id="1-настройки-внутри-portainer-docker-compose">1. Настройки внутри <code>Portainer Docker Compose</code></h3>
-<p>Ваш итоговый стек в <code>Portainer</code> должен содержать правильный баланс между поддержкой старого протокола поиска для камеры и защитой от дублирования дисков для Mac. Используйте только один порт для данных: Для передачи файлов должен быть открыт только современный порт 445:445. Устаревший порт 139:139 в разделе ports лучше не пробрасывать, чтобы Finder на Mac не путался. Порты обнаружения (<code>UDP</code>): Камера Aqara ищет сервер по портам <code>137:137/udp</code> и <code>138:138/udp</code>. Они обязательны для автопоиска в приложении. Отключение фантомных дисков через переменные: В блоке environment переменная NMBD=true должна работать в паре с флагом command: -w &ldquo;WORKGROUP&rdquo; -g &ldquo;netbios name = YSTM-SERVER&rdquo;. Это жестко связывает NetBIOS-имя и рабочую группу, помогая камере увидеть NAS.Финальный эталонный YAML-код для Portainer:yamlversion: &lsquo;3.8&rsquo;</p>
+<p>Ваш итоговый стек в <code>Portainer</code> должен содержать правильный баланс между поддержкой старого протокола поиска для камеры и защитой от дублирования дисков для Mac. Используйте только один порт для данных: Для передачи файлов должен быть открыт только современный порт 445:445. . Порты обнаружения <code>UDP</code>: Камера <code>Aqara</code> ищет сервер по портам <code>137:137/udp</code> и <code>138:138/udp</code>. Они обязательны для автопоиска в приложении. Отключение фантомных дисков через переменные: В блоке environment переменная NMBD=true должна работать в паре с флагом command: -w &ldquo;WORKGROUP&rdquo; -g &ldquo;netbios name = YSTM-SERVER&rdquo;. Это жестко связывает NetBIOS-имя и рабочую группу, помогая камере увидеть <code>NAS</code>. Финальный эталонный <code>YAML</code>-код для <code>Portainer</code>:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#39;3.8&#39;</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">services</span>:
@@ -115,17 +112,38 @@
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">command</span>: -<span style="color:#ae81ff">w &#34;WORKGROUP&#34; -g &#34;netbios name = YSTM-SERVER&#34;</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">volumes</span>:
 </span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">/opt/ystm_cameras:/mount</span>
-</span></span></code></pre></div><h3 id="2-настройки-на-уровне-ос-ubuntu-server">2. Настройки на уровне ОС Ubuntu Server</h3>
-<p>Сетевой протокол <code>SMB</code> очень чувствителен к правам доступа внутри <code>Linux</code>. Контейнер не сможет записать видеопоток, если ОС заблокирует доступ к жесткому диску. Полноценные права на папку (Права 777): Так как <code>Docker</code> запускает службы от виртуальных пользователей, физическая папка на <code>Mac mini</code> должна быть открыта для записи:</p>
+</span></span></code></pre></div><h3 id="2-настройки-на-уровне-ubuntu-server">2. Настройки на уровне <code>Ubuntu Server</code></h3>
+<p>Сетевой протокол <code>SMB</code> очень чувствителен к правам доступа внутри <code>Linux</code>. Контейнер не сможет записать видеопоток, если <code>ОС Ubuntu</code> заблокирует доступ к жесткому диску. Полноценные права на папку (Права 777): Так как <code>Docker</code> запускает службы от виртуальных пользователей, физическая папка на <code>Mac mini</code> должна быть открыта для записи:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo chmod -R <span style="color:#ae81ff">777</span> /home/video_storage
-</span></span></code></pre></div><p>Используйте код с осторожностью.Служба mDNS (Avahi) для Apple-устройств: Чтобы Mac всегда находил сервер по адресу smb://YSTM-SERVER.local, на самом Linux-сервере должна быть активна служба Bonjour/Avahi. Убедитесь, что она запущена:</p>
+</span></span></code></pre></div><p>Служба <code>mDNS</code> (Avahi) для <code>Apple</code>-устройств: Чтобы Mac всегда находил сервер по адресу <code>smb://YSTM-SERVER.local</code>, на самом <code>Linux</code>-сервере должна быть активна служба <code>Bonjour/Avahi</code>. Убедитесь, что она запущена:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt install -y avahi-daemon
 </span></span><span style="display:flex;"><span>sudo systemctl enable avahi-daemon
 </span></span><span style="display:flex;"><span>sudo systemctl start avahi-daemon
 </span></span></code></pre></div><h3 id="3-настройки-на-стороне-роутера">3. Настройки на стороне Роутера.</h3>
-<p>Поскольку SMB-сервер обслуживает беспроводное устройство (Wi-Fi камеру) и проводной сервер (Mac mini), настройки роутера играют ключевую роль. Фиксация IP-адреса (Статический IP): В панели роутера (192.168.1.1) в разделе «Домашняя сеть» найдите ваш Mac mini и зарегистрируйте его, закрепив за ним постоянный IP (например, <code>192.168.1.157</code>). Если роутер сменит IP сервера после перезагрузки, камера Aqara потеряет архив. Отключение изоляции беспроводных клиентов (Isolation / Guest Network): Камера должна находиться в основной домашней <code>Wi-Fi</code> сети. Если подключить её к «Гостевой сети», роутер заблокирует прохождение SMB/NetBIOS пакетов до Mac mini, и автопоиск работать не будет.Проводное подключение сервера: Крайне рекомендуется подключать Mac mini к роутеру Keenetic только по сетевому кабелю (LAN), а не по <code>Wi-Fi</code>. Видеопоток от камер и одновременное чтение тяжелых файлов с Mac создают высокую нагрузку на сеть, с которой старый беспроводной модуль <code>Mac mini 2010</code> года просто не справится (будут просадки по скорости и обрывы связи).</p>
+<p>Поскольку <code>SMB</code>-сервер обслуживает беспроводное устройство <code>Wi-Fi</code> камеру и проводной сервер <code>Mac mini</code>, настройки роутера играют ключевую роль. Фиксация <code>IP</code>-адреса (Статический <code>IP</code>): В панели роутера (192.168.1.1) в разделе «Домашняя сеть» найдите ваш <code>Mac mini</code> и зарегистрируйте его, закрепив за ним постоянный IP (например, <code>192.168.1.157</code>). Если роутер сменит <code>IP</code> сервера после перезагрузки, камера <code>Aqara</code> потеряет архив.</p>
+<h4 id="отключение-изоляции-беспроводных-клиентов-isolation--guest-network">Отключение изоляции беспроводных клиентов (Isolation / Guest Network):</h4>
+<p>Камера должна находиться в основной домашней <code>Wi-Fi</code> сети. Если подключить её к «Гостевой сети», роутер заблокирует прохождение <code>SMB/NetBIOS</code> пакетов до <code>Mac mini</code>, и автопоиск работать не будет.</p>
+<h4 id="проводное-подключение-сервера">Проводное подключение сервера:</h4>
+<p>Крайне рекомендуется подключать <code>Mac mini</code> к роутеру только по сетевому кабелю <code>LAN</code>, а не по <code>Wi-Fi</code>. Видеопоток от камер и одновременное чтение тяжелых файлов с <code>Mac</code> создают высокую нагрузку на сеть, с которой старый беспроводной модуль <code>Mac mini 2010</code> года просто не справится (будут просадки по скорости и обрывы связи).</p>
 <h3 id="4-настройки-кэша-на-стороне-macos-ввод-паролей">4. Настройки кэша на стороне macOS (Ввод паролей)</h3>
-<p>Чтобы Finder не выдавал ошибку «Сервер недоступен» после того, как Mac mini уходил в спящий режим или перезагружался:При подключении через Cmd + K вводите адрес со спецификатором протокола и полным путем: <code>smb://YSTM-SERVER.local</code>. При вводе логина (videoadmin) обязательно отмечайте галочку «Запомнить этот пароль в связке ключей». Это позволит <code>macOS</code> автоматически монтировать видеоархив в фоне при каждом включении компьютера.</p>
+<p>Чтобы <code>Finder</code> не выдавал ошибку «Сервер недоступен» после того, как <code>Mac mini</code> уходил в спящий режим или перезагружался:</p>
+<p>При подключении через <code>Finder</code> -&gt; <code>Cmd + K</code> вводите адрес со спецификатором протокола и полным путем: <code>smb://YSTM-SERVER.local</code>. При вводе логина обязательно отмечайте галочку «Запомнить этот пароль в связке ключей». Это позволит <code>macOS</code> автоматически монтировать видеоархив в фоне при каждом включении компьютера.</p>
+<hr>
+<h3 id="вы-также-можете-прочитать-о-том-как-автоматически-запускать-mac-мини-после-отключения-электричества-здесь-"><!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    
+    <a href="/restarting-mac-mini"  > Вы также можете прочитать о том, как автоматически запускать Mac мини после отключения электричества здесь… 🔗 </a>
+</body>
+
+</html></h3>
   <hr>
 
 <div id="nextprev">
