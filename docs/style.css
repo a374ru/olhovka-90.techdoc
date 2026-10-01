@@ -32,7 +32,7 @@ body {
 main {
 	  flex: 1;
     width: 100%;
-     max-width: 800px;  /* ограничение для десктопа */
+	max-width: 960px;  /* ограничение для десктопа */
     margin: 0 auto;
     padding: 0 12px;    /* фиксированный отступ вместо 0.4rem */
     box-sizing: border-box;
