@@ -30,10 +30,12 @@ body {
 }
 
 main {
-	flex: 1;
-	max-width: 800px;
-	margin: auto;
-	padding: 0 0.4rem;
+	  flex: 1;
+    width: 100%;
+     max-width: 800px;  /* ограничение для десктопа */
+    margin: 0 auto;
+    padding: 0 12px;    /* фиксированный отступ вместо 0.4rem */
+    box-sizing: border-box;
 }
 
 header {
@@ -185,10 +187,14 @@ blockquote p::before {
 }
 
 .markdown-body {
-	margin: auto;
-	display: flex;
-	flex-direction: column;
-	width: 77%;
+	.markdown-body {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
 }
 
 .navi {
@@ -411,6 +417,7 @@ a:hover {
 img {
 	width: 96%;
 	height: 200px;
+	box-sizing: border-box;
 	object-fit: cover;
 	display: block;
 	/* margin-left: auto;
@@ -625,7 +632,7 @@ table.gsc-search-box {
 
 	body {
 		font-size: 18px;
-		padding: 0px 7px 0px 7px;
+		padding: 0;
 		margin: 0;
 	}
 
