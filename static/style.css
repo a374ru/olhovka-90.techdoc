@@ -689,9 +689,9 @@ table.gsc-search-box {
 	.markdown-body {
 		width: 97%;
 	}
-	main {
-		margin: 0 3vw;
-	}
+	/* main {
+		padding: 0 3vw;
+	} */
 
 	/* blockquote {
 		margin-right: 2px;
