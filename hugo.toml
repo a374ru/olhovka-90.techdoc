@@ -2,3 +2,9 @@ baseURL = '/'
 languageCode = 'ru-RU'
 title = 'Ольховка-90'
 theme = "lugo"
+
+[markup]
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 3
+    ordered = false

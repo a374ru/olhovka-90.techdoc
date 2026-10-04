@@ -202,7 +202,94 @@ dnf install nginx
 		<header><a href="/"> <h1 id="tag_Полезные команды">Полезные команды</h1></a>
 		</header>
 		     <hr>
-		<article> <h4 id="-шпаргалка-33-основные-команды-для-управления-linux-сервером">🐧 Шпаргалка: 33 основные команды для управления Linux-сервером</h4>
+		<article>
+			
+				
+					
+					<aside class="page-menu">
+						<nav aria-label="Меню страницы">
+							<h2>Содержание</h2>
+							<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#-1-информация-о-системе-и-хосте">🖥️ 1. Информация о системе и хосте</a>
+      <ul>
+        <li><a href="#1-hostname--показать-имя-хоста">1. <code>hostname</code> — показать имя хоста</a></li>
+        <li><a href="#2-hostnamectl--замена-имени-хоста">2. <code>hostnamectl</code> — замена имени хоста</a></li>
+        <li><a href="#3-uname--информация-о-ядре-и-системе">3. <code>uname</code> — информация о ядре и системе</a></li>
+        <li><a href="#4-uptime--время-работы-и-нагрузка">4. <code>uptime</code> — время работы и нагрузка</a></li>
+        <li><a href="#5-whoami--текущий-пользователь">5. <code>whoami</code> — текущий пользователь</a></li>
+      </ul>
+    </li>
+    <li><a href="#-2-диски-и-файловые-системы">💾 2. Диски и файловые системы</a>
+      <ul>
+        <li><a href="#6-lsblk--список-блочных-устройств">6. <code>lsblk</code> — список блочных устройств</a></li>
+        <li><a href="#7-df--свободное-место-на-дисках">7. <code>df</code> — свободное место на дисках</a></li>
+        <li><a href="#8-du--размер-каталоговфайлов">8. <code>du</code> — размер каталогов/файлов</a></li>
+        <li><a href="#9-fdisk--parted--разметка-дисков-расширение-пространства">9. <code>fdisk</code> / <code>parted</code> — разметка дисков (расширение пространства)</a></li>
+        <li><a href="#10-growpart--resize2fs--xfs_growfs--расширение-фс">10. <code>growpart</code> / <code>resize2fs</code> / <code>xfs_growfs</code> — расширение ФС</a></li>
+        <li><a href="#11-mount--umount--монтирование">11. <code>mount</code> / <code>umount</code> — монтирование</a></li>
+      </ul>
+    </li>
+    <li><a href="#-3-работа-с-файлами-и-каталогами">📁 3. Работа с файлами и каталогами</a>
+      <ul>
+        <li><a href="#12-ls--список-файлов">12. <code>ls</code> — список файлов</a></li>
+        <li><a href="#13-cd--переход-по-каталогам">13. <code>cd</code> — переход по каталогам</a></li>
+        <li><a href="#14-cp--mv--rm--копирование-перемещение-удаление">14. <code>cp</code> / <code>mv</code> / <code>rm</code> — копирование, перемещение, удаление</a></li>
+        <li><a href="#15-mkdir--rmdir--созданиеудаление-каталогов">15. <code>mkdir</code> / <code>rmdir</code> — создание/удаление каталогов</a></li>
+        <li><a href="#16-find--поиск-файлов">16. <code>find</code> — поиск файлов</a></li>
+        <li><a href="#17-tar--архивирование">17. <code>tar</code> — архивирование</a></li>
+      </ul>
+    </li>
+    <li><a href="#-4-просмотр-и-редактирование">📝 4. Просмотр и редактирование</a>
+      <ul>
+        <li><a href="#18-cat--less--tail--head">18. <code>cat</code> / <code>less</code> / <code>tail</code> / <code>head</code></a></li>
+        <li><a href="#19-nano--vim--редакторы">19. <code>nano</code> / <code>vim</code> — редакторы</a></li>
+        <li><a href="#20-grep--поиск-по-содержимому">20. <code>grep</code> — поиск по содержимому</a></li>
+        <li><a href="#21-sed--awk--обработка-текста">21. <code>sed</code> / <code>awk</code> — обработка текста</a></li>
+      </ul>
+    </li>
+    <li><a href="#-5-процессы-и-службы">⚙️ 5. Процессы и службы</a>
+      <ul>
+        <li><a href="#22-ps--top--htop--мониторинг-процессов">22. <code>ps</code> / <code>top</code> / <code>htop</code> — мониторинг процессов</a></li>
+        <li><a href="#23-kill--pkill--killall">23. <code>kill</code> / <code>pkill</code> / <code>killall</code></a></li>
+        <li><a href="#24-systemctl--управление-службами">24. <code>systemctl</code> — управление службами</a></li>
+        <li><a href="#25-journalctl--логи-systemd">25. <code>journalctl</code> — логи systemd</a></li>
+      </ul>
+    </li>
+    <li><a href="#-6-сеть">🌐 6. Сеть</a>
+      <ul>
+        <li><a href="#26-ip--сетевые-интерфейсы">26. <code>ip</code> — сетевые интерфейсы</a></li>
+        <li><a href="#27-ss--netstat--открытые-порты">27. <code>ss</code> / <code>netstat</code> — открытые порты</a></li>
+        <li><a href="#28-ping--traceroute--curl--wget">28. <code>ping</code> / <code>traceroute</code> / <code>curl</code> / <code>wget</code></a></li>
+        <li><a href="#29-ssh--scp--rsync--удалённый-доступ-и-копирование">29. <code>ssh</code> / <code>scp</code> / <code>rsync</code> — удалённый доступ и копирование</a></li>
+      </ul>
+    </li>
+    <li><a href="#-7-пользователи-и-права">👤 7. Пользователи и права</a>
+      <ul>
+        <li><a href="#30-useradd--passwd--usermod">30. <code>useradd</code> / <code>passwd</code> / <code>usermod</code></a></li>
+        <li><a href="#31-chmod--chown">31. <code>chmod</code> / <code>chown</code></a></li>
+        <li><a href="#32-sudo--su--повышение-прав">32. <code>sudo</code> / <code>su</code> — повышение прав</a></li>
+      </ul>
+    </li>
+    <li><a href="#-8-пакеты-и-обновления">📦 8. Пакеты и обновления</a>
+      <ul>
+        <li><a href="#33-apt--dnf--yum--управление-пакетами">33. <code>apt</code> / <code>dnf</code> / <code>yum</code> — управление пакетами</a></li>
+      </ul>
+    </li>
+    <li><a href="#-бонус-полезные-мелочи">🧰 Бонус: полезные мелочи</a></li>
+  </ul>
+</nav>
+						</nav>
+					</aside>
+					
+				
+			
+			 <h4 id="-шпаргалка-33-основные-команды-для-управления-linux-сервером">🐧 Шпаргалка: 33 основные команды для управления Linux-сервером</h4>
 <ul>
 <li>Формат: <strong>команда</strong> — краткое описание + пример</li>
 </ul>

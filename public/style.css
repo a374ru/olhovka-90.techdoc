@@ -256,6 +256,45 @@ img#search-target-img {
 	transition: 1s;
 }
 
+.page-menu {
+	margin: 1.25rem 0 2rem;
+	padding: 0.9rem 2rem 1rem;
+	background: #ffffff;
+	border-bottom: 4px solid #ff9500;
+	border-radius: 10px;
+	box-shadow: 0 8px 18px rgba(90, 64, 18, 0.05);
+}
+
+.page-menu h2 {
+	margin: 0 0 0.7rem;
+	font-size: 0.85rem;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: #8d5a00;
+}
+
+.page-menu nav ul {
+	margin: 0;
+	padding-left: 1.2rem;
+}
+
+.page-menu nav li {
+	padding: 0.2rem 0;
+}
+
+.page-menu nav > ul {
+	margin-left: 0;
+	padding-left: 1rem;
+}
+
+.page-menu nav a {
+	color: #5e4b2c;
+}
+
+.page-menu nav a:hover {
+	color: #f07e2c;
+}
+
 nav {
 	/* 	height: 1.7em; */
 	padding: 15px 2px 22px 0px;
@@ -596,6 +635,12 @@ table.gsc-search-box {
 		padding: 0.6em;
 		margin: 0.3em;
 	}
+	.page-menu {
+	margin: 1rem 0 1rem;
+	padding: 0.1rem 0rem 1rem;
+	border-bottom: 4px solid #ffffff;
+	border-radius: 6px;
+}
 }
 
 @media (max-width: 767px) and (orientation: portrait) {

@@ -27,7 +27,20 @@
 		<header><a href="{{ .Site.BaseURL }}"> <h1 id="tag_{{ .Title }}">{{ block "title" . }}{{ end }}</h1></a>
 		</header>
 		     <hr>
-		<article>{{ block "main" . }} {{ .Content }} {{ end }} {{ if .Param "nextprev" }}{{ partial "nextprev.html" . -}}{{ end -}} {{ if .Param "taglist" }}{{ partial "taglist.html" . }}{{ end -}} 
+		<article>
+			{{ if and (not .IsHome) (not .Params.hideToc) }}
+				{{ with .TableOfContents }}
+					{{ if gt (len (findRE "<li>" .)) 0 }}
+					<aside class="page-menu">
+						<nav aria-label="Меню страницы">
+							<h2>Содержание</h2>
+							{{ . }}
+						</nav>
+					</aside>
+					{{ end }}
+				{{ end }}
+			{{ end }}
+			{{ block "main" . }} {{ .Content }} {{ end }} {{ if .Param "nextprev" }}{{ partial "nextprev.html" . -}}{{ end -}} {{ if .Param "taglist" }}{{ partial "taglist.html" . }}{{ end -}} 
 		</article>
 	</main> {{ block "footer" . }} 
 
