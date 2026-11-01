@@ -48,3 +48,9 @@ hugo server --ignoreCache
 ```sh
 hugo server -D --ignoreCache
 ```
+
+Сборка проекта
+
+```sh
+hugo build
+```

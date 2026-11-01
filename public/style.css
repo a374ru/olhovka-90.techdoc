@@ -9,6 +9,13 @@
 	--fontSize-H1: 1.7em;
 	--background-body: #fffafa;
 }
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 /* html{height: 100vh;} */
 body {
 	margin: 0;
@@ -452,7 +459,7 @@ a:hover {
 }
 
 img {
-	width: 96%;
+	width: 99%;
 	height: 200px;
 	box-sizing: border-box;
 	object-fit: cover;
@@ -468,16 +475,16 @@ margin-right: auto; */
 	border-radius: 1vh;
 	background-color: #ffeeee;
 	transition:
-		transform 0.3s ease,
-		box-shadow 0.3s ease;
+		/* transform 0.2s ease, */
+		box-shadow 0.1s ease;
 }
 
 img:hover {
 	/* background-color: #e9ed0f; */
 	/* filter: saturate(0.1); */
 	/* filter: drop-shadow(0px 0px 2px #0005) saturate(77%); */
-	transform: translateY(-5px);
-	box-shadow: 0 7px 7px rgba(0, 0, 0, 0.2);
+	/* transform: translateY(-1em); */
+	box-shadow: 0px 0px 7px 7px rgba(0, 0, 0, 0.2);
 }
 
 time {
